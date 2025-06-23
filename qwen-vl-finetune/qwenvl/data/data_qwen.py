@@ -468,7 +468,7 @@ class LazySupervisedDataset(Dataset):
         elif "video" in self.list_data_dict[i]:
             data_dict["pixel_values_videos"] = torch.cat(video, dim=0)
             data_dict["video_grid_thw"] = torch.cat(
-                [thw.unsqueeze(0) for the in video_grid_thw], dim=0
+                [thw.unsqueeze(0) for thw in video_grid_thw], dim=0
             )
 
         return data_dict
