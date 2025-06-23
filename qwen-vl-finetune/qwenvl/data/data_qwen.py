@@ -93,7 +93,7 @@ def preprocess_qwen_2_visual(
                         replacement = (
                             "<|vision_start|>"
                             + f"<|image_pad|>"
-                            * grid_thw_image[visual_replicate_index_image]
+                            # * grid_thw_image[visual_replicate_index_image]
                             + "<|vision_end|>"
                         )
                         new_parts.append(replacement)
@@ -447,7 +447,7 @@ class LazySupervisedDataset(Dataset):
             grid_thw_merged = None
             sources = copy.deepcopy([e["conversations"] for e in sources])
             data_dict = preprocess_qwen_2_visual(
-                sources, self.tokenizer, grid_thw=grid_thw_merged
+                sources, self.tokenizer, grid_thw_image=grid_thw_merged
             )
             position_ids = (
                 torch.arange(0, data_dict["input_ids"].size(1))
@@ -468,7 +468,7 @@ class LazySupervisedDataset(Dataset):
         elif "video" in self.list_data_dict[i]:
             data_dict["pixel_values_videos"] = torch.cat(video, dim=0)
             data_dict["video_grid_thw"] = torch.cat(
-                [thw.unsqueeze(0) for thw in video_grid_thw], dim=0
+                [thw.unsqueeze(0) for the in video_grid_thw], dim=0
             )
 
         return data_dict
